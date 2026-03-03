@@ -18,7 +18,7 @@ body{font-family:'Poppins',sans-serif;background:#f9f9ff;color:#111;line-height:
 .logo{font-size:26px;font-weight:800;background:linear-gradient(45deg,#6a00ff,#ff00aa);-webkit-background-clip:text;color:transparent}
 .nav-links{display:flex;gap:30px;list-style:none}
 .nav-links a{text-decoration:none;color:#333;font-weight:500}
-.btn{padding:12px 28px;border-radius:50px;text-decoration:none;font-weight:600;transition:.3s}
+.btn{padding:12px 28px;border-radius:50px;text-decoration:none;font-weight:600;transition:.3s;cursor:pointer}
 .btn-primary{background:linear-gradient(45deg,#6a00ff,#ff00aa);color:white}
 .btn-primary:hover{opacity:0.9}
 
@@ -27,27 +27,61 @@ body{font-family:'Poppins',sans-serif;background:#f9f9ff;color:#111;line-height:
 .hero h1{font-size:48px;font-weight:800;margin-bottom:20px}
 .hero p{max-width:700px;margin:auto;color:#555;margin-bottom:30px}
 
+/* STATS */
+.stats{background:white;padding:80px 0;text-align:center}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.stat h2{color:#6a00ff;font-size:32px}
+
+/* ROLE SECTION */
+.role-section{padding:100px 0;background:#fff;text-align:center}
+.role-grid{display:flex;justify-content:center;gap:40px;flex-wrap:wrap}
+.role-card{background:#f9f9ff;padding:40px;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,0.05);max-width:300px}
+
 /* FEATURES */
 .features{padding:100px 0;text-align:center}
 .features h2{font-size:36px;margin-bottom:60px}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
 .card{background:white;padding:40px;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,0.05);transition:.3s}
 .card:hover{transform:translateY(-10px)}
-.card h3{margin-bottom:15px}
-
-/* STATS */
-.stats{background:white;padding:80px 0;text-align:center}
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.stat h2{color:#6a00ff;font-size:32px}
 
 /* CTA */
 .cta{background:linear-gradient(45deg,#6a00ff,#ff00aa);color:white;text-align:center;padding:100px 0}
-.cta h2{font-size:40px;margin-bottom:20px}
 
 /* FOOTER */
 footer{background:#111;color:#aaa;text-align:center;padding:40px 0}
 
-/* RESPONSIVE */
+/* MODAL */
+.modal{
+display:none;
+position:fixed;
+z-index:2000;
+left:0;top:0;
+width:100%;height:100%;
+background:rgba(0,0,0,0.6);
+justify-content:center;
+align-items:center;
+}
+.modal-content{
+background:white;
+padding:40px;
+border-radius:20px;
+width:90%;
+max-width:400px;
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+.modal-content input{
+padding:12px;
+border-radius:8px;
+border:1px solid #ddd;
+}
+.close{
+text-align:right;
+font-size:22px;
+cursor:pointer;
+}
+
 @media(max-width:992px){
 .nav-links{display:none}
 .grid{grid-template-columns:1fr}
@@ -75,7 +109,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:40px 0}
 <section class="hero">
 <div class="container">
 <h1>Drive Powerful Creator Marketing</h1>
-<p>Connect brands and creators in one powerful platform. Launch campaigns, manage collaborations and track performance — all completely free.</p>
+<p>Connect brands and creators in one powerful platform.</p>
 <a href="#" class="btn btn-primary">Download Free</a>
 </div>
 </section>
@@ -89,21 +123,43 @@ footer{background:#111;color:#aaa;text-align:center;padding:40px 0}
 </div>
 </section>
 
+<!-- ROLE SELECTION -->
+<section class="role-section">
+<div class="container">
+<h2 style="margin-bottom:40px;">Tell Us Who You Are</h2>
+<div class="role-grid">
+
+<div class="role-card">
+<h3>For Brands</h3>
+<p style="margin:20px 0;">Launch campaigns and manage creators.</p>
+<button onclick="openBrandForm()" class="btn btn-primary">Continue as Brand</button>
+</div>
+
+<div class="role-card">
+<h3>For Creators</h3>
+<p style="margin:20px 0;">Find brand deals and grow your influence.</p>
+<button onclick="openCreatorForm()" class="btn btn-primary">Continue as Creator</button>
+</div>
+
+</div>
+</div>
+</section>
+
 <section class="features">
 <div class="container">
 <h2>Everything You Need</h2>
 <div class="grid">
 <div class="card">
 <h3>Creator Discovery</h3>
-<p>Find the right influencers based on niche, engagement and audience data.</p>
+<p>Find the right influencers based on niche and engagement.</p>
 </div>
 <div class="card">
 <h3>Campaign Management</h3>
-<p>Manage content approvals, contracts and payments in one dashboard.</p>
+<p>Manage approvals, contracts and payments in one dashboard.</p>
 </div>
 <div class="card">
 <h3>Performance Analytics</h3>
-<p>Track ROI and performance with real-time insights.</p>
+<p>Track ROI with real-time insights.</p>
 </div>
 </div>
 </div>
@@ -120,6 +176,43 @@ footer{background:#111;color:#aaa;text-align:center;padding:40px 0}
 <footer>
 <p>© 2026 SInfluencer. All Rights Reserved.</p>
 </footer>
+
+<!-- BRAND MODAL -->
+<div id="brandModal" class="modal">
+<div class="modal-content">
+<span onclick="closeModal()" class="close">&times;</span>
+<h2>Brand Details</h2>
+<input type="text" placeholder="Company Name">
+<input type="email" placeholder="Work Email">
+<input type="text" placeholder="Company Size">
+<button class="btn btn-primary">Submit</button>
+</div>
+</div>
+
+<!-- CREATOR MODAL -->
+<div id="creatorModal" class="modal">
+<div class="modal-content">
+<span onclick="closeModal()" class="close">&times;</span>
+<h2>Creator Details</h2>
+<input type="text" placeholder="Full Name">
+<input type="email" placeholder="Email">
+<input type="text" placeholder="Instagram / YouTube Link">
+<button class="btn btn-primary">Submit</button>
+</div>
+</div>
+
+<script>
+function openBrandForm(){
+document.getElementById("brandModal").style.display="flex";
+}
+function openCreatorForm(){
+document.getElementById("creatorModal").style.display="flex";
+}
+function closeModal(){
+document.getElementById("brandModal").style.display="none";
+document.getElementById("creatorModal").style.display="none";
+}
+</script>
 
 </body>
 </html>
